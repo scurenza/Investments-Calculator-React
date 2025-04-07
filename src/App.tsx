@@ -2,6 +2,8 @@ import { useState } from "react";
 import UserInput from "./components/UserInput";
 import Header from "./components/Header";
 import React from "react";
+import Results from "./components/Results";
+import { calculateInvestmentResults } from "./util/investment";
 
 type UserData = {
   initialInvestment: number;
@@ -18,6 +20,8 @@ function App() {
     duration: 10,
   });
 
+  const annualizedData = calculateInvestmentResults(userData);
+
   const handleChange = (selectedField: string, value: number) => {
     setUserData((prevState) => {
       return {
@@ -33,6 +37,13 @@ function App() {
     <>
       <Header />
       <UserInput userData={userData} onChange={handleChange} />
+      {userData.duration > 0 ? (
+        <Results annualizedData={annualizedData} />
+      ) : (
+        <div className="no-results">
+          <p>Please enter a duration greater than 0.</p>
+        </div>
+      )}
     </>
   );
 }

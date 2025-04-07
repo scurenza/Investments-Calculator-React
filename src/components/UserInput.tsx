@@ -33,6 +33,7 @@ function UserInput({ userData, onChange }) {
           <input
             className="mt-05"
             type="number"
+            step={0.5}
             value={userData.expectedReturn}
             onChange={(event) => onChange("expectedReturn", event.target.value)}
           />
